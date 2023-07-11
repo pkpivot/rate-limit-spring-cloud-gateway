@@ -20,15 +20,15 @@ public class GatewayApplication {
 	}
 
 
-	@Bean
-	public RouteLocator myRoutes(RouteLocatorBuilder builder) {
-		return builder.routes()
-				.route("requestratelimiter_route", p -> p
-						.path("/example")
-						.filters(f -> f.requestRateLimiter(r -> r.setRateLimiter(myRateLimiter())))
-						.uri("http://example.org"))
-				.build();
-	}
+//	@Bean
+//	public RouteLocator myRoutes(RouteLocatorBuilder builder) {
+//		return builder.routes()
+//				.route("requestratelimiter_route", p -> p
+//						.path("/example")
+//						.filters(f -> f.requestRateLimiter(r -> r.setRateLimiter(myRateLimiter())))
+//						.uri("http://example.org"))
+//				.build();
+//	}
 
 	@Primary
 	@Bean
