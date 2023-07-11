@@ -30,7 +30,7 @@ public class GatewayApplication {
 //				.build();
 //	}
 
-	@Primary
+
 	@Bean
 	public MyRateLimiter myRateLimiter() {
 		return new MyRateLimiter();
