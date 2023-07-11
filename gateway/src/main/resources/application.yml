@@ -12,7 +12,8 @@ spring:
           predicates:
             - Path=/backend/**
           filters:
-            - StripPrefix=1
+          - name: RequestRateLimiter
+          - StripPrefix=1
 
 management:
   health:
