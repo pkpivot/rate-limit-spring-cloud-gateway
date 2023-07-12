@@ -1,5 +1,6 @@
 package io.agilehandy.learn;
 
+import org.springframework.context.annotation.Primary;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,12 @@ public class GatewayApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GatewayApplication.class, args);
+	}
+
+	@Primary
+	@Bean
+	public MyKeyResolver getResolver() {
+		return new MyKeyResolver();
 	}
 
 }

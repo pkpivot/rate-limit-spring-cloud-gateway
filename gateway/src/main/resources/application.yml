@@ -6,14 +6,25 @@ spring:
     name: gateway
   cloud:
     gateway:
+      filter:
+        request-rate-limiter:
+          deny-empty-key: true
       routes:
         - id: route1
           uri: http://localhost:8081
           predicates:
             - Path=/backend/**
           filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 10
+                redis-rate-limiter.requestedTokens: 10
             - StripPrefix=1
 
+logging:
+  level:
+    root: info
 management:
   health:
     redis:
