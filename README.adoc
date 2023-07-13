@@ -1,3 +1,73 @@
+README
+======
+This example has been forked from Haybu/blog-spring-cloud-gateway. This fork adds two branches: 
+
+* redis
+* custom-limiter
+
+The example consists of three parts: frontend, backend, and gateway. The frontend runs on port 8080 and calls the 
+frontend (port 8081) via the gateway (port 9090). 
 
 
-include::documentation/src/docs/asciidoc/index.adoc[]
+
+Redis Branch
+--
+To build this example: 
+
+```
+git checkout redis
+mvn package
+```
+
+For the Redis rate limiter to work, you need a running Redis with no password serving on port 6379. The easiest 
+way to do this is to use docker: 
+
+```
+docker run --name redis -e ALLOW_EMPTY_PASSWORD=yes -p 6379:6379 bitnami/redis:latest 
+```
+
+Run the three components of the example: 
+
+```
+java -jar backend-service/target/backend-service-0.0.1-SNAPSHOT.jar 
+java -jar frontend-service/target/frontend-service-0.0.1-SNAPSHOT.jar 
+java -jar gateway/target/gateway-0.0.1-SNAPSHOT.jar 
+```
+You will need a separate terminal to run each command. You could also run them as detached processes, but then 
+you can't see the logs on the console. 
+
+Use a browser to access http://localhost:8080/message to see the application run. 
+
+Use the shell script retry.sh to keep calling the endpoint. You will see some responses and some error 500s when the 
+gateway limits the response rate. You can adjust the rate limiting with the parameters ib
+gateway/src/main/resources/application.yml. 
+
+
+Custom limiter
+--
+
+
+The custom rate limiter doesn't include any rate limiting code, but does show you how to plumb your own 
+custom rate limiter in. 
+
+To build this example:
+
+```
+git checkout redis
+mvn package
+```
+
+Run the three components of the example:
+
+```
+java -jar backend-service/target/backend-service-0.0.1-SNAPSHOT.jar 
+java -jar frontend-service/target/frontend-service-0.0.1-SNAPSHOT.jar 
+java -jar gateway/target/gateway-0.0.1-SNAPSHOT.jar 
+```
+You will need a separate terminal to run each command. You could also run them as detached processes, but then
+you can't see the logs on the console.
+
+Use a browser to access http://localhost:8080/message to see the application run. The logs for the gateway application 
+show that the key resolver and rate limiter code are called each time the gateway is accessed. 
+
+
