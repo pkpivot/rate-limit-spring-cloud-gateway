@@ -1,5 +1,7 @@
 README
 ======
+
+
 This example has been forked from Haybu/blog-spring-cloud-gateway. This fork adds two branches: 
 
 * redis
@@ -11,7 +13,8 @@ frontend (port 8081) via the gateway (port 9090).
 
 
 Redis Branch
---
+------------
+
 To build this example: 
 
 ```
@@ -44,7 +47,7 @@ gateway/src/main/resources/application.yml.
 
 
 Custom limiter
---
+--------------
 
 
 The custom rate limiter doesn't include any rate limiting code, but does show you how to plumb your own 
@@ -53,7 +56,7 @@ custom rate limiter in.
 To build this example:
 
 ```
-git checkout redis
+git checkout custom-limiter
 mvn package
 ```
 
